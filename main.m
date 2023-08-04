@@ -30,18 +30,18 @@ direction_vector = [round(cos(direction_angle_xz), 15) ...
 %% Depth parameters
 start_depth = 0.00;
 end_depth = 0.20;
-step_size = 0.01;
+step_size = 0.02;
 
 
 %% Plot selection
 show_geometry = 0;
 show_movement = 0;
 
-show_f_quiver = 0;
+show_f_quiver = 1;
 show_alpha = 0;
 
-show_f_scatter = 0;
-show_f_scatterxyz = 1;
+show_f_scatter = 1;
+show_f_scatterxyz = 0;
 
 show_results = 0;
 
