@@ -13,33 +13,33 @@ tl = tiledlayout(1,3,'TileSpacing','loose','Padding','compact');
 nexttile(tl);
 hold on;
 trimesh(TRG_visual, 'LineWidth', 0.1, 'EdgeColor', '#888888', 'FaceAlpha', 0);
-s1 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,1), 'SizeData', 10*max_pressure/max(abs(pressures(:,2)))*abs(pressures(:,1)));
-colormap(jet);
-clim([-max_pressure max_pressure]);
+s1 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', abs(pressures(:,1)), 'SizeData', 1000*max_pressure/max(abs(pressures(:,1)))*abs(pressures(:,1)));
+colormap(colors_sequential);
+clim([0 max_pressure]);
 setPlotProperties(x_range, y_range, z_range);
 
 % Plot forces on each point of the mesh (scatter y)
 nexttile(tl);
 hold on;
 trimesh(TRG_visual, 'LineWidth', 0.1, 'EdgeColor', '#888888', 'FaceAlpha', 0);
-s2 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,2), 'SizeData', 10*max_pressure/max(abs(pressures(:,2)))*abs(pressures(:,2)));
-colormap(jet);
-clim([-max_pressure max_pressure]);
+s2 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', abs(pressures(:,2)), 'SizeData', 1000*max_pressure/max(abs(pressures(:,2)))*abs(pressures(:,2)));
+colormap(colors_sequential);
+clim([0 max_pressure]);
 setPlotProperties(x_range, y_range, z_range);
 
 % Plot forces on each point of the mesh (scatter z)
 nexttile(tl);
 hold on;
 trimesh(TRG_visual, 'LineWidth', 0.1, 'EdgeColor', '#999999', 'FaceAlpha', 0);
-s3 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,3), 'SizeData', 10*max_pressure/max(abs(pressures(:,2)))*abs(pressures(:,3)));
-colormap(jet);
-clim([-max_pressure max_pressure]);
+s3 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', abs(pressures(:,3)), 'SizeData', 1000*max_pressure/max(abs(pressures(:,3)))*abs(pressures(:,3)));
+colormap(colors_sequential);
+clim([0 max_pressure]);
 setPlotProperties(x_range, y_range, z_range);
 
 % Add colorbar to the last subplot
 c = colorbar;
 c.Layout.Tile = 'north';
-c.Ticks = [-max_pressure 0 max_pressure];
+c.Ticks = [0 max_pressure];
 c.Label.String = 'Pressure [N/mm²]';
 set(findall(gcf,'-property','FontSize'),'FontSize',16);
 
