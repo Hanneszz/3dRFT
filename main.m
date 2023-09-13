@@ -2,9 +2,9 @@ clear
 close all
 
 %% Intruder geometry
-folder = 'cylinder';                               % cylinder, simple, robottip
-object = 'cylinder';                                  % name of stl
-triangle_size_calculation = 'normal';            % 'Fine', 'Normal', 'Rough', 'VeryRough'
+folder = 'cylinder';                            % cylinder, simple, robottip
+object = 'cylinder';                            % name of stl
+triangle_size_calculation = 'normal';           % 'Fine', 'Normal', 'Rough', 'VeryRough'
 triangle_size_visualization = 'rough';          % 'Fine', 'Normal', 'Rough', 'VeryRough'
 rotation_angle = 0;                             % rotate intruder around x-axis
 colors_diverging = 'jet'; % brewermap([], 'RdBu')
@@ -13,15 +13,15 @@ colors_sequential = 'jet'; % brewermap([], 'Oranges')
 
 %% Physical Properties
 rho_c = 1520;                                   % bulk density of the sand in kg/m³   
-mu_int = tan(deg2rad(20));                                  % internal friction coefficient of the sand
-mu_surf = 0.30;                               % intruder-surface interaction coefficient
-gravity =  9.81;                                 % gravity in m/s²
+mu_int = tan(deg2rad(20));                      % internal friction coefficient of the sand
+mu_surf = 0.40;                                 % intruder-surface interaction coefficient
+gravity =  9.81;                                % gravity in m/s²
 xi_n = rho_c * gravity * (894*mu_int^3 - 386*mu_int^2 + 89*mu_int); % initially in N/m³ rho_c * gravity * (894*mu_int^3 - 386*mu_int^2 + 89*mu_int)
 
 
 %% Movement parameters
-rotation = 1;                                % true or false
-linear_velocity = 0.1;                        % linear velocity in m/s
+rotation = 1;                                   % true or false
+linear_velocity = 0.1;                          % linear velocity in m/s
 direction_angle_xz = -90 * pi / 180;            % angle between direction and x-z-axis
 direction_angle_y = -90 * pi / 180;             % angle between direction and y-axis
 angular_velocity = [0, 0, -2*pi];               % angular velocity in rad/s
@@ -30,7 +30,7 @@ direction_vector = [round(cos(direction_angle_xz), 15) ...
 
 
 %% Depth parameters
-start_depth = 0.0;
+start_depth = 0.13;
 end_depth = 0.13;
 step_size = 0.13;
 
@@ -39,7 +39,7 @@ step_size = 0.13;
 show_geometry = 0;
 show_movement = 0;
 
-show_f_quiver = 0;
+show_f_quiver = 1;
 show_alpha = 0;
 
 show_f_scatter = 0;
@@ -76,38 +76,38 @@ for depth = start_depth:step_size:end_depth
     TRG = moveTriangulationZ(TRG, depth);                         % align align bottom with depth
     TRG_visual = moveTriangulationZ(TRG_visual, depth);           % align bottom with depth (visual)
     
-    tic
+    
     % step 1: process STL data
     [points, normals, areas, depth_list] = getStlData(TRG, TRG.Points', TRG.ConnectivityList');
-    toc
+    
 
     % Intruder size readings
     intruder_width_x = abs( max(points(:,1)) - min(points(:,1)) );
     intruder_width_y = abs( max(points(:,2)) - min(points(:,2)) );
     intruder_height = abs( max(points(:,3)) - min(points(:,3)) );
 
-    tic
+    
     % step 2: define movement vector
     [movement, movement_normalized] = calcVelocity(points, depth, intruder_height, direction_vector, linear_velocity, rotation, angular_velocity, threshold);
-    toc
+    
 
-    tic
+    
     % step 3: RFT conditions
     [include, normals_include, movement_normalized_include, movement_include, areas_include, points_include, depth_list_include] ...
         = checkConditions(points, normals, areas, movement, movement_normalized, depth_list, unit_test, threshold);
-    toc
+    
 
-    tic
+    
     % step 4: find local coordinate frame
     [z_local, r_local, theta_local] = findLocalFrame(normals_include, movement_normalized_include, movement_include, include, unit_test);
-    toc
     
-    tic
-    % step 5: RFT characteristic angles
+    
+    
+    % step 5: RFT characteris angles
     [beta, gamma, psi] = findAngles(normals_include, movement_normalized_include, r_local, z_local, theta_local);
-    toc
+    
 
-    tic
+    
     % step 6: empirically determined force components
     [f1, f2, f3] = findFit(gamma, beta, psi, z_local, movement_normalized_include, normals_include, threshold, depth_list_include, include, unit_test);
 

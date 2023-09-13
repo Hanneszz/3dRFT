@@ -13,16 +13,7 @@ function [beta, gamma, psi] = findAngles(normals_include, movement_normalized_in
         beta(i) = -pi + round(acos(dot(normals_include(i,:),z_local(i,:), 2)), 15);
     end
     end
-    
-    % gamma - velocity characteristic angle
-    % gamma = zeros(size(movement_normalized_include,1),1);
-    % for i = 1:size(movement_normalized_include,1)
-    % if dot(movement_normalized_include(i,:), z_local(i,:), 2) <= 0
-    % gamma(i) = round(acos(dot(movement_normalized_include(i,:), r_local(i,:), 2)), 15);
-    % else
-    % gamma(i) = -round(acos(dot(movement_normalized_include(i,:), r_local(i,:), 2)), 15);
-    % end
-    % end
+   
 
     gamma = zeros(size(movement_normalized_include, 1), 1);
     for i = 1:size(movement_normalized_include, 1)
