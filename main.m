@@ -12,8 +12,8 @@ colors_sequential = 'jet'; % brewermap([], 'Oranges')
 
 
 %% Physical Properties
-rho_c = 1520;                                   % bulk density of the sand in kg/m³   
-mu_int = tan(deg2rad(20));                      % internal friction coefficient of the sand
+rho_c = 1310;                                   % bulk density of the sand in kg/m³   
+mu_int = 0.21;                      % internal friction coefficient of the sand
 mu_surf = 0.40;                                 % intruder-surface interaction coefficient
 gravity =  9.81;                                % gravity in m/s²
 xi_n = rho_c * gravity * (894*mu_int^3 - 386*mu_int^2 + 89*mu_int); % initially in N/m³ rho_c * gravity * (894*mu_int^3 - 386*mu_int^2 + 89*mu_int)
@@ -24,15 +24,15 @@ rotation = 1;                                   % true or false
 linear_velocity = 0.1;                          % linear velocity in m/s
 direction_angle_xz = -90 * pi / 180;            % angle between direction and x-z-axis
 direction_angle_y = -90 * pi / 180;             % angle between direction and y-axis
-angular_velocity = [0, 0, -2*pi];               % angular velocity in rad/s
+angular_velocity = [0, 0, -1*pi];               % angular velocity in rad/s
 direction_vector = [round(cos(direction_angle_xz), 15) ...
     round(cos(direction_angle_y), 15) round(sin(direction_angle_xz), 15)];
 
 
 %% Depth parameters
-start_depth = 0.13;
-end_depth = 0.13;
-step_size = 0.13;
+start_depth = 0.125;
+end_depth = 0.125;
+step_size = 0.125;
 
 
 %% Plot selection
@@ -42,7 +42,7 @@ show_movement = 0;
 show_f_quiver = 1;
 show_alpha = 0;
 
-show_f_scatter = 0;
+show_f_scatter = 1;
 show_f_scatterxyz = 0;
 
 show_results = 0;
@@ -109,7 +109,7 @@ for depth = start_depth:step_size:end_depth
 
     
     % step 6: empirically determined force components
-    [f1, f2, f3] = findFit(gamma, beta, psi, z_local, movement_normalized_include, normals_include, threshold, depth_list_include, include, unit_test);
+    [f1, f2, f3] = findFit(gamma, beta, psi, threshold, depth_list_include, include, unit_test);
 
     % step 7: find generic form of alpha, split into normal and tangential
     % components and add soil + interface properties for to get alpha
