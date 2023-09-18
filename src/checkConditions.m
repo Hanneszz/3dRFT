@@ -5,7 +5,8 @@ function [include, normals_include, movement_normalized_include,...
     
     is_leading_edge = dot(normals, movement_normalized, 2) >= -threshold;
     is_intruding = points(:,3) < 0;
-    include = is_leading_edge & is_intruding;
+    % is_wrong_way = normals(:,2) < -threshold;
+    include = is_leading_edge & is_intruding; % & is_wrong_way;
     
     normals_include = normals(include,:);
     movement_normalized_include = movement_normalized(include,:);

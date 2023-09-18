@@ -31,7 +31,7 @@ direction_vector = [round(cos(direction_angle_xz), 15) ...
 
 %% Depth parameters
 start_depth = 0.0;
-end_depth = 0.1;
+end_depth = 0.125;
 step_size = 0.1;
 
 
@@ -45,7 +45,7 @@ show_alpha = 0;
 show_f_scatter = 1;
 show_f_scatterxyz = 0;
 
-show_results = 0;
+show_results = 1;
 
 saveFigures = 0;
 
