@@ -8,12 +8,12 @@ function [z_local, r_local, theta_local] = findLocalFrame(normals_include, movem
     
     r_local = zeros(size(normals_include,1),3);
     for i = 1:size(normals_include,1)
-    if (vecnorm(movement_include(i,:) - dot(movement_include(i,:), z_local(i,:), 3) .* z_local(i,:), 2, 2) == 0 && vecnorm(normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 3) .* z_local(i,:), 2, 2) == 0)
+    if (vecnorm(movement_include(i,:) - dot(movement_include(i,:), z_local(i,:), 2) .* z_local(i,:), 2, 2) == 0 && vecnorm(normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 2) .* z_local(i,:), 2, 2) == 0)
     r_local(i,:) = [1; 0; 0];
-    elseif (vecnorm(movement_nn_include(i,:) - dot(movement_nn_include(i,:), z_local(i,:), 3) .* z_local(i,:), 2, 2) == 0 && vecnorm(normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 3) .* z_local(i,:), 2, 2) ~= 0)
-    r_local(i,:) = (normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 3) .* z_local(i,:)) ./ vecnorm(normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 3) .* z_local(i,:), 2, 2);
+    elseif (vecnorm(movement_include(i,:) - dot(movement_include(i,:), z_local(i,:), 2) .* z_local(i,:), 2, 2) == 0 && vecnorm(normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 2) .* z_local(i,:), 2, 2) ~= 0)
+    r_local(i,:) = (normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 2) .* z_local(i,:)) ./ vecnorm(normals_include(i,:) - dot(normals_include(i,:), z_local(i,:), 2) .* z_local(i,:), 2, 2);
     else
-    r_local(i,:) = (movement_nn_include(i,:) - dot(movement_nn_include(i,:), z_local(i,:), 3) .* z_local(i,:)) ./ vecnorm(movement_nn_include(i,:) - dot(movement_nn_include(i,:), z_local(i,:), 3) .* z_local(i,:), 2, 2);
+    r_local(i,:) = (movement_include(i,:) - dot(movement_include(i,:), z_local(i,:), 2) .* z_local(i,:)) ./ vecnorm(movement_include(i,:) - dot(movement_include(i,:), z_local(i,:), 2) .* z_local(i,:), 2, 2);
     end
     end
     
