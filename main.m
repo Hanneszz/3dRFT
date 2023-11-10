@@ -24,14 +24,14 @@ rotation = 1;                                   % true or false
 linear_velocity = 0.1;                          % linear velocity in m/s
 direction_angle_xz = -90 * pi / 180;            % angle between direction and x-z-axis
 direction_angle_y = -90 * pi / 180;             % angle between direction and y-axis
-angular_velocity = [0, 0, -2*pi()];               % angular velocity in rad/s
+angular_velocity = [0, 0, -0.5*pi()];               % angular velocity in rad/s
 direction_vector = [round(cos(direction_angle_xz), 15) ...
     round(cos(direction_angle_y), 15) round(sin(direction_angle_xz), 15)];
 
 
 %% Depth parameters
-start_depth = 0.1;
-end_depth = 0.2;
+start_depth = 0.125;
+end_depth = 0.125;
 step_size = 0.005;
 
 
@@ -39,7 +39,7 @@ step_size = 0.005;
 show_geometry = 0;
 show_movement = 0;
 
-show_f_quiver = 0;
+show_f_quiver = 1;
 show_alpha = 0;
 
 show_f_scatter = 0;
