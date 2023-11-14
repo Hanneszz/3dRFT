@@ -7,8 +7,8 @@ object = 'cylinder';                            % name of stl
 triangle_size_calculation = 'Rough';           % 'Fine', 'Normal', 'Rough', 'VeryRough'
 triangle_size_visualization = 'Rough';          % 'Fine', 'Normal', 'Rough', 'VeryRough'
 rotation_angle = deg2rad(0);                             % rotate intruder around x-axis
-colors_diverging = 'jet'; % brewermap([], 'RdBu')
-colors_sequential = 'jet'; % brewermap([], 'Oranges')
+colors_diverging = colormap('jet'); % brewermap([], 'RdBu')
+colors_sequential = colormap('jet'); % brewermap([], 'Oranges')
 
 
 %% Physical Properties
@@ -39,7 +39,7 @@ step_size = 0.005;
 show_geometry = 0;
 show_movement = 0;
 
-show_f_quiver = 1;
+show_f_quiver = 0;
 show_alpha = 0;
 
 show_f_scatter = 0;
