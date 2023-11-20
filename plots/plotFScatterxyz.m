@@ -20,7 +20,7 @@ size_data3 = max(size_data3, eps);
 nexttile(tl);
 hold on;
 trimesh(TRG_visual, 'LineWidth', 0.1, 'EdgeColor', '#888888', 'FaceAlpha', 0);
-s1 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,1), 'SizeData', size_data1);
+s1 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,1));%, 'SizeData', size_data1
 colormap(colors_sequential);
 clim([-max_pressure max_pressure]);
 setPlotProperties(x_range, y_range, z_range);
@@ -29,7 +29,7 @@ setPlotProperties(x_range, y_range, z_range);
 nexttile(tl);
 hold on;
 trimesh(TRG_visual, 'LineWidth', 0.1, 'EdgeColor', '#888888', 'FaceAlpha', 0);
-s2 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,2), 'SizeData', size_data2);
+s2 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,2));%, 'SizeData', size_data2
 colormap(colors_sequential);
 clim([-max_pressure max_pressure]);
 setPlotProperties(x_range, y_range, z_range);
@@ -38,7 +38,7 @@ setPlotProperties(x_range, y_range, z_range);
 nexttile(tl);
 hold on;
 trimesh(TRG_visual, 'LineWidth', 0.1, 'EdgeColor', '#999999', 'FaceAlpha', 0);
-s3 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,3), 'SizeData', size_data3);
+s3 = scatter3(points_include(:,1), points_include(:,2), points_include(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', pressures(:,3));%, 'SizeData', size_data3
 colormap(colors_sequential);
 clim([-max_pressure max_pressure]);
 setPlotProperties(x_range, y_range, z_range);

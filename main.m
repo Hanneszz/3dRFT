@@ -12,7 +12,7 @@ colors_sequential = 'jet'; % brewermap([], 'Oranges')
 
 
 %% Physical Properties
-rho_c = 1310;                                   % bulk density of the sand in kg/m³   
+rho_c = 3000;                                   % bulk density of the sand in kg/m³   
 mu_int = 0.21;                      % internal friction coefficient of the sand
 mu_surf = 0.4;                                 % intruder-surface interaction coefficient
 gravity =  9.81;                                % gravity in m/s²
@@ -24,20 +24,20 @@ rotation = 1;                                   % true or false
 linear_velocity = 0.1;                          % linear velocity in m/s
 direction_angle_xz = -90 * pi / 180;            % angle between direction and x-z-axis
 direction_angle_y = -90 * pi / 180;             % angle between direction and y-axis
-angular_velocity = [0, 0, -2*pi()];               % angular velocity in rad/s
+angular_velocity = [0, 0, -1*pi()];               % angular velocity in rad/s
 direction_vector = [round(cos(direction_angle_xz), 15) ...
     round(cos(direction_angle_y), 15) round(sin(direction_angle_xz), 15)];
 
 
 %% Depth parameters
-start_depth = 0.1;
-end_depth = 0.1;
+start_depth = 0.125;
+end_depth = 0.125;
 step_size = 0.1;
 
 
 %% Plot selection
 show_geometry = 0;
-show_movement = 0;
+show_movement = 1;
 
 show_f_quiver = 0;
 show_alpha = 0;

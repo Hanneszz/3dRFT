@@ -29,7 +29,7 @@ nonzero_indices = vecnorm(pressures, 2, 2) > 0;
 nonzero_pressures = pressures(nonzero_indices, :);
 nonzero_points = points_include(nonzero_indices, :);
 
-scatter3(nonzero_points(:,1), nonzero_points(:,2), nonzero_points(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', vecnorm(nonzero_pressures, 2, 2), 'SizeData', 1000*abs(vecnorm(nonzero_pressures, 2, 2))); %250*abs(vecnorm(nonzero_pressures, 2, 2))
+scatter3(nonzero_points(:,1), nonzero_points(:,2), nonzero_points(:,3), 'filled', 'MarkerEdgeColor', 'none', 'CData', vecnorm(nonzero_pressures, 2, 2), 'SizeData', 5000*abs(vecnorm(nonzero_pressures, 2, 2))); %250*abs(vecnorm(nonzero_pressures, 2, 2))
 colormap(colors_sequential);
 
 c = colorbar;
