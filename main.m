@@ -4,15 +4,15 @@ close all
 %% Intruder geometry
 folder = 'cylinder';                            % cylinder, simple, robottip
 object = 'cylinder';                            % name of stl
-triangle_size_calculation = 'rough';           % 'Fine', 'Normal', 'Rough', 'VeryRough'
-triangle_size_visualization = 'rough';          % 'Fine', 'Normal', 'Rough', 'VeryRough'
+triangle_size_calculation = 'Rough';           % 'Fine', 'Normal', 'Rough', 'VeryRough'
+triangle_size_visualization = 'Rough';          % 'Fine', 'Normal', 'Rough', 'VeryRough'
 rotation_angle = deg2rad(0);                             % rotate intruder around x-axis
-colors_diverging = 'jet'; % brewermap([], 'RdBu')
-colors_sequential = 'jet'; % brewermap([], 'Oranges')
+colors_diverging = colormap('jet'); % brewermap([], 'RdBu')
+colors_sequential = colormap('jet'); % brewermap([], 'Oranges')
 
 
 %% Physical Properties
-rho_c = 3000;                                   % bulk density of the sand in kg/m³   
+rho_c = 3000;                                   % bulk density of the sand in kg/m³
 mu_int = 0.21;                      % internal friction coefficient of the sand
 mu_surf = 0.4;                                 % intruder-surface interaction coefficient
 gravity =  9.81;                                % gravity in m/s²
@@ -42,7 +42,7 @@ show_movement = 1;
 show_f_quiver = 0;
 show_alpha = 0;
 
-show_f_scatter = 1;
+show_f_scatter = 0;
 show_f_scatterxyz = 0;
 
 show_results = 0;
@@ -72,51 +72,51 @@ results = zeros(7, round(num_steps, 0));
 step = 1;
 
 for depth = start_depth:step_size:end_depth
-
+    tic
     TRG = moveTriangulationZ(TRG, depth);                         % align align bottom with depth
     TRG_visual = moveTriangulationZ(TRG_visual, depth);           % align bottom with depth (visual)
-    
-    
+
+
     % step 1: process STL data
     [points, normals, areas, depth_list] = getStlData(TRG, TRG.Points', TRG.ConnectivityList');
-    
+
 
     % Intruder size readings
     intruder_width_x = abs( max(points(:,1)) - min(points(:,1)) );
     intruder_width_y = abs( max(points(:,2)) - min(points(:,2)) );
     intruder_height = abs( max(points(:,3)) - min(points(:,3)) );
 
-    
+
     % step 2: define movement vector
     [movement, movement_normalized] = calcVelocity(points, depth, intruder_height, direction_vector, linear_velocity, rotation, angular_velocity, threshold);
-    
 
-    
+
     % step 3: RFT conditions
     [include, normals_include, movement_normalized_include, movement_include, areas_include, points_include, depth_list_include] ...
         = checkConditions(points, normals, areas, movement, movement_normalized, depth_list, unit_test, threshold);
-    
 
-    
+
     % step 4: find local coordinate frame
     [z_local, r_local, theta_local] = findLocalFrame(normals_include, movement_normalized_include, movement_include, include, unit_test);
-    
-    
-    
+
+
+
     % step 5: RFT characteris angles
     [beta, gamma, psi] = findAngles(normals_include, movement_normalized_include, r_local, z_local, theta_local);
-    
 
-    
+
     % step 6: empirically determined force components
     [f1, f2, f3] = findFit(gamma, beta, psi, threshold, depth_list_include, include, unit_test);
+
 
     % step 7: find generic form of alpha, split into normal and tangential
     % components and add soil + interface properties for to get alpha
     [alpha_gen, alpha_gen_n, alpha_gen_t, alpha] = findAlpha(normals_include, movement_normalized_include, beta, gamma, psi, r_local, theta_local, z_local, f1, f2, f3, mu_surf, xi_n);
 
+
     % step 8: get forces
     [forces, pressures, force_x, force_y, force_z, resultant] = getForces(depth_list_include, areas_include, alpha);
+
 
     % step 9: get torques
     [T, torque_x, torque_y, torque_z] = getTorques(points_include, depth_list_include, forces, unit_test, include);
@@ -126,9 +126,8 @@ for depth = start_depth:step_size:end_depth
 
     disp(['Depth processed: ', num2str(depth), 'm']);
     step = step + 1;
-
+    toc
 end
-
 
 %% Call plotting functions
 x_range = [min(points(:,1))-intruder_width_x/10 max(points(:,1))+intruder_width_x/10];
